@@ -8,7 +8,7 @@ export const productsAPI = () => {
       } = useQuery({
         queryKey: ["Products"],
         queryFn: async () => {
-          const res = await fetch("product.json");
+          const res = await fetch("http://localhost:5000/products");
           const data = await res.json();
           return data;
         },

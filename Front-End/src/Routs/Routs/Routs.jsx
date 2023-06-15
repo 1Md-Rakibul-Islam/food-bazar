@@ -6,6 +6,7 @@ import Login from "../../Pages/Login/Login";
 import Page404 from "../../Pages/Shared/404/Page404";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import Products from "../../Pages/Products/Products";
+import Admin from "../../Pages/Admin/Admin";
 
 
 export const router = createBrowserRouter([
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
       {
         path: "/products",
         element: <PrivateRoute><Products></Products></PrivateRoute>,
+      },
+      {
+        path: "/admin",
+        element: <PrivateRoute><Admin></Admin></PrivateRoute>,
       },
       {
         path: "/signup",

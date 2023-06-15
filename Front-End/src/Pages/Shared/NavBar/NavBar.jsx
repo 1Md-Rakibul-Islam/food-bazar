@@ -86,7 +86,7 @@ const NavBar = () => {
               <Link to="/products">Products</Link>
             </li>
             <li className="my-2 text-center w-full hover:bg-green-600 p-1">
-              <button>My Order</button>
+              <Link to="/admin">admin</Link>
             </li>
             {user?.email ? (
               <li onClick={() => handelLogOut()}> Logout</li>

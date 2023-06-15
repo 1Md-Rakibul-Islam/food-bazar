@@ -14,6 +14,7 @@ app.use(express.json());
 
 // Route
 import ProductRoute from './Routes/ProductRoute.js'
+import OrderRoute from './Routes/OrderRoute.js'
 
 
 
@@ -29,3 +30,4 @@ mongoose
 
 // API
 app.use('/products', ProductRoute);
+app.use('/orders', OrderRoute);

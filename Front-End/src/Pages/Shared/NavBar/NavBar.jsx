@@ -35,7 +35,7 @@ const NavBar = () => {
               <Link to="/products">Products</Link>
             </li>
             <li className="hover:text-green-600 text-white">
-              <button>My Order</button>
+              <button>Admin Orders</button>
             </li>
             {user?.email ? (
               <li className="text-center bg-green-600 text-white px-2 cursor-pointer  rounded-full" onClick={() => handelLogOut()}>Logout</li>

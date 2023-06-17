@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaBox, FaShoppingCart, FaTimes, FaUser } from "react-icons/fa";
 import { AuthContext } from "../../../Context/AuthProvider/AuthProvider";
 import Brand from "../../../Components/Brand";
+import { useDispatch, useSelector } from "react-redux";
+import { getOrders } from "../../../fetures/orders/ordersSlice";
 
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -16,7 +18,13 @@ const NavBar = () => {
     logOut().then().catch();
   };
 
-  const navItems = ["About"];
+  const dispatch = useDispatch();
+  const orders = useSelector((state) => state.getOrders.orders);
+  const loading = useSelector((state) => state.getOrders.loading);
+
+  useEffect(() => {
+    dispatch(getOrders());
+  }, [orders]);
 
   return (
     <nav
@@ -54,6 +62,7 @@ const NavBar = () => {
 
         <div className="flex items-center space-x-5">
           <FaShoppingCart className="text-2xl hover:text-green-600 text-white" />
+          {orders?.length}
           <div className="flex items-center md:space-x-0 space-x-5 rounded-full p-2 border-2 border-green-400">
             <button onClick={() => setOpenNav(true)}>
               <FaBars className="text-xl md:hidden block text-white" />

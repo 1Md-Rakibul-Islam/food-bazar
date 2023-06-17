@@ -1,10 +1,23 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
+import { addOrder } from "../API/cartRequest";
 
 const productCard = ({ product }) => {
-  // console.log(product);
   const { _id, name, image, description, price } = product;
+
+  const handleAddToCart = () => {
+    // console.log('Add to cart');
+    const order = {
+      status: "pending",
+      productId: _id,
+      name,
+      image,
+      description,
+      price
+    }
+    addOrder(order)
+  }
 
   return (
     <div>
@@ -25,7 +38,7 @@ const productCard = ({ product }) => {
           </p>
 
           <div className="flex gap-2 justify-center">
-            <button class="items-center w-full py-2.5 text-lg font-semibold text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 ">
+            <button onClick={handleAddToCart} class="items-center w-full py-2.5 text-lg font-semibold text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 ">
               Add to Cart
             </button>
           </div>

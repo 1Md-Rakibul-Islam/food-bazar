@@ -20,3 +20,14 @@ export const getProducts = async (req, res) => {
     res.status(500).json(error);
   }
 };
+
+// get a products
+export const getProduct = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const product = await ProductModel.findOne({ _id: id});
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};

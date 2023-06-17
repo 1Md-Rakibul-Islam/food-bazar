@@ -23,16 +23,16 @@ export const router = createBrowserRouter([
         element: <PrivateRoute><Products></Products></PrivateRoute>,
       },
       {
-        path: "/admin",
-        element: <PrivateRoute><Admin></Admin></PrivateRoute>,
-      },
-      {
         path: "/signup",
         element: <SignUp></SignUp>,
       },
       {
         path: "/login",
         element: <Login></Login>,
+      },
+      {
+        path: "/admin",
+        element: <PrivateRoute><Admin></Admin></PrivateRoute>,
       },
       {
         path: "*",

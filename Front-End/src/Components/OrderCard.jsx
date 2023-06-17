@@ -31,7 +31,7 @@ const OrderCard = ({ order }) => {
         <p>{name}</p>
       </td>
       <td className="p-3">
-        <p>14 Jan 2022</p>
+        <p>{createdAt}</p>
         <p className="text-gray-400">Friday</p>
       </td>
       <td className="p-3 text-right">

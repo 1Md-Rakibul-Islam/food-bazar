@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaBox, FaShoppingCart, FaTimes, FaUser } from "react-icons/fa";
@@ -6,12 +6,14 @@ import { AuthContext } from "../../../Context/AuthProvider/AuthProvider";
 import Brand from "../../../Components/Brand";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrders } from "../../../fetures/orders/ordersSlice";
+import usePrevious from "../../../Hooks/usePrevious";
+
 
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
 
   const [openNav, setOpenNav] = useState(false);
-
+  const [playTone, setPlayTone] = useState(false); // New state for playing audio tone
   const [openPopup, setOpenPopup] = useState(false);
 
   const handelLogOut = () => {
@@ -25,6 +27,36 @@ const NavBar = () => {
   useEffect(() => {
     dispatch(getOrders());
   }, [orders]);
+
+  // Music
+  useEffect(() => {
+    // Check if orders.length has increased or new orders have been added
+    if (orders?.length > 0 && orders?.length > prevOrders?.length) {
+      setPlayTone(true);
+    }
+  }, [orders]);
+
+  const prevOrders = usePrevious(orders); // Custom hook to get previous value of orders
+
+  useEffect(() => {
+    // Play audio tone when playTone state is true
+    if (playTone) {
+      playAudioTone();
+    }
+  }, [playTone]);
+
+  const playAudioTone = () => {
+    // Logic to play the audio tone
+    // You can use the HTML5 Audio API or any other audio library of your choice
+    // Example:
+    const audio = new Audio("../../../assets/audios/MessageTone.mp3");
+    audio.play();
+
+    // After playing the audio, set playTone state to false
+    setPlayTone(false);
+  };
+
+
 
   return (
     <nav
@@ -43,10 +75,15 @@ const NavBar = () => {
               <Link to="/products">Products</Link>
             </li>
             <li className="hover:text-green-600 text-white">
-              <Link to={'/admin'}>Admin</Link>
+              <Link to={"/admin"}>Admin</Link>
             </li>
             {user?.email ? (
-              <li className="text-center bg-green-600 text-white px-2 cursor-pointer  rounded-full" onClick={() => handelLogOut()}>Logout</li>
+              <li
+                className="text-center bg-green-600 text-white px-2 cursor-pointer  rounded-full"
+                onClick={() => handelLogOut()}
+              >
+                Logout
+              </li>
             ) : (
               <>
                 <Link to={"/login"}>
@@ -102,10 +139,16 @@ const NavBar = () => {
             ) : (
               <>
                 <Link to={"/login"}>
-                  <li className="my-2 text-center w-full hover:bg-green-600 p-1"> Login</li>{" "}
+                  <li className="my-2 text-center w-full hover:bg-green-600 p-1">
+                    {" "}
+                    Login
+                  </li>{" "}
                 </Link>
                 <Link to={"/signup"}>
-                  <li className="my-2 text-center w-full hover:bg-green-600 p-1"> Register</li>
+                  <li className="my-2 text-center w-full hover:bg-green-600 p-1">
+                    {" "}
+                    Register
+                  </li>
                 </Link>
               </>
             )}

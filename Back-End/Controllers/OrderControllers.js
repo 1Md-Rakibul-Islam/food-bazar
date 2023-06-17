@@ -25,7 +25,7 @@ export const getPendingOrders = async (req, res) => {
 
 export const getOrders = async (req, res) => {
   const {status} = req.body;
-  console.log(status);
+  // console.log(status);
   try {
       const order = await OrderModel.find({});
       res.status(200).json(order);
